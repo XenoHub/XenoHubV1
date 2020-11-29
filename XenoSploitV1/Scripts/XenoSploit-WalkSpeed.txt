@@ -1,0 +1,18 @@
+-- Simple Walkspeed and Jump power script
+-- Made By Joseph#5931 enjoy! :D
+
+local speed = 100 -- Add the amount of speed you want here!
+
+spawn(function()
+while wait() do
+game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = speed
+end
+end)
+
+local jump = 100 -- Add the amount of jump power you want here!
+
+spawn(function()
+while wait() do
+game.Players.LocalPlayer.Character.Humanoid.JumpPower = jump
+end
+end)

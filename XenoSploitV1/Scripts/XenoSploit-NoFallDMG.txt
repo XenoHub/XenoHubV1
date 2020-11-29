@@ -1,0 +1,52 @@
+local minimumFallTime = 0.75
+-- ^ The minimum time the player has to fall to take damage
+local damagePercent = 0.5 
+-- ^ If its 0.5, their damage is 50% of their MaxHealth * the time they fell
+----------------------------------------------------------------------------
+local Humanoid = script.Parent.Humanoid
+local falling = false
+
+function notFreeFalling() 
+	falling = false 
+end
+
+function FreeFalling() 
+	falling = true 
+end
+
+Humanoid.Died:connect(notFreeFalling)
+Humanoid.Running:connect(notFreeFalling)
+Humanoid.Jumping:connect(notFreeFalling)
+Humanoid.Climbing:connect(notFreeFalling)
+Humanoid.GettingUp:connect(notFreeFalling)
+Humanoid.FallingDown:connect(notFreeFalling)
+Humanoid.Seated:connect(notFreeFalling)
+Humanoid.PlatformStanding:connect(notFreeFalling)
+
+Humanoid.FreeFalling:connect(FreeFalling)
+
+
+local hurtSound
+while not hurtSound do
+	for _,v in pairs(script.Parent:WaitForChild("Head"):GetChildren()) do
+		if v:IsA("Sound") and  v.SoundId == "rbxasset://sounds/uuhhh.wav" then
+			hurtSound = v
+			break
+		end
+	end
+	wait()
+end
+
+while wait() do
+	if falling then
+		local start = tick()
+		repeat wait() until not falling
+		print(tick()-start)
+		if tick()-start >= minimumFallTime then
+			local h,m = Humanoid.Health,Humanoid.MaxHealth
+			local damage = (tick()-start)*(m*damagePercent)
+			hurtSound:Play()
+			Humanoid:TakeDamage((h<damage) and h or damage)
+		end
+	end
+end

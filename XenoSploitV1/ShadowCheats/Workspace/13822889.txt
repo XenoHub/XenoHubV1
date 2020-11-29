@@ -1,0 +1,1 @@
+{"Aim Part":"Head","ESP":true,"Aimbot":true,"Tracers":false,"Show FOV":true,"Team Check":false,"Visuals Color":"Rainbow","Aim Key":"EKeyboard","Smoothness":"3","FOV Radius":"61"}
